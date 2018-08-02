@@ -6,7 +6,7 @@
         <v-toolbar-items class="hidden-sm-and-down">
             <v-btn class="btn-navbar" flat @click="home">Home</v-btn>
             <v-btn v-if="isLogin || loginStatus" flat @click="admin">Admin Page</v-btn>
-            <v-btn v-if="!isLogin || !loginStatus" @click="login" flat>Login</v-btn>
+            <v-btn v-if="loginStatus === false" @click="login" flat>Login</v-btn>
             <v-btn v-if="isLogin || loginStatus" flat @click="logout">Logout</v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -14,6 +14,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import swal from 'sweetalert2'
 
 export default {
     name: 'Navbar',
@@ -34,6 +35,11 @@ export default {
         },
         logout () {
             localStorage.removeItem('token')
+
+            swal('Yeah', 'Logout Successfull!', 'success')
+
+            this.loginStatus = false
+            this.$router.push('/login')
         }
     },
     created: function () {

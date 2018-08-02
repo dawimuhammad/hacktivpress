@@ -71,6 +71,28 @@ export default new Vuex.Store({
       })
 
         commit('emptyCommit')
+    },
+    registerAccount ({ commit }, payload) {
+      let url =`http://localhost:3000/users/register`
+
+      axios({
+        method: 'post',
+        url: url,
+        data: {
+            username: payload.username,
+            password: payload.password
+        }
+      })
+      .then(function (response) {
+          console.log(response)
+          swal('Yeah ..', 'User has been registered!', 'success')
+      })
+      .catch(function (err) {
+          console.log(err)
+          swal('Opps ..', `Something went wrong! Message: ${err.message}`, 'error')
+      })
+
+      commit('emptyCommit')
     }
   }
 })

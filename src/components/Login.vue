@@ -68,10 +68,10 @@ export default {
       }
     },
     created () {
-        // if (localStorage.hasOwnProperty('token')) {
-        //     console.log('ada token, ga boleh masuk login form')
-        //     this.$router.push('/')
-        // }
+        if (localStorage.hasOwnProperty('token')) {
+            console.log('ada token, ga boleh masuk login form')
+            this.$router.push('/')
+        }
     },
     methods: {
         ...mapActions([
@@ -79,34 +79,34 @@ export default {
             'loginAccount'
         ]),
         registerUser: function () {
-            // if ( this.signupUsername === '' || this.signupPassword === '') {
+            if ( this.signupUsername === '' || this.signupPassword === '') {
 
-            //     swal('Ooops ..', 'No empty field bruh!', 'error')
+                swal('Ooops ..', 'No empty field bruh!', 'error')
                 
-            //     this.signupUsername = ''
-            //     this.signupPassword = ''
+                this.signupUsername = ''
+                this.signupPassword = ''
                 
-            // } else if (this.signupPassword.length < 8) {
+            } else if (this.signupPassword.length < 8) {
 
-            //     swal('Ooops ..', 'Password minimum 8 character!', 'error')
+                swal('Ooops ..', 'Password minimum 8 character!', 'error')
                 
-            //     this.signupUsername = ''
-            //     this.signupPassword = ''
+                this.signupUsername = ''
+                this.signupPassword = ''
 
-            // } else {
-            //     let payload = {
-            //         username: this.signupUsername,
-            //         password: this.signupPassword
-            //     }
+            } else {
+                let payload = {
+                    username: this.signupUsername,
+                    password: this.signupPassword
+                }
 
 
-            //     this.signupUsername = ''
-            //     this.signupPassword = ''
+                this.signupUsername = ''
+                this.signupPassword = ''
 
-            //     this.$router.push('/')
+                this.$router.push('/')
 
-            //     this.registerAccount(payload)
-            // }
+                this.registerAccount(payload)
+            }
         },
         loginUser: function () {
             if (this.signinUsername === '' || this.signinPassword === '') {
