@@ -5,19 +5,21 @@
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
             <v-btn class="btn-navbar" flat @click="home">Home</v-btn>
-            <v-btn v-if="userToken" flat @click="about">Admin Page</v-btn>
-            <v-btn v-if="!userToken" @click="login" flat>Login</v-btn>
-            <v-btn v-if="userToken" flat @click="logout">Logout</v-btn>
+            <v-btn v-if="isLogin || loginStatus" flat @click="admin">Admin Page</v-btn>
+            <v-btn v-if="!isLogin || !loginStatus" @click="login" flat>Login</v-btn>
+            <v-btn v-if="isLogin || loginStatus" flat @click="logout">Logout</v-btn>
         </v-toolbar-items>
       </v-toolbar>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: 'Navbar',
     data: function () {
         return {
-            userToken: ''
+            loginStatus: false
         }
     },
     methods: {
@@ -36,14 +38,17 @@ export default {
     },
     created: function () {
         if (localStorage.hasOwnProperty('token')) {
-            this.userToken = true
+            this.loginStatus = true
+            console.log('ada token')
         } else {
-            this.userToken = false
+            this.loginStatus = false
             console.log('ga ada token')
         }
     },
     computed: {
-
+        ...mapState([
+            'isLogin'
+        ])
     }
 
 }

@@ -10,11 +10,15 @@ export default new Vuex.Store({
     articles: [],
     articlesByAuthor: [],
     articleById: [],
-    currentUser: []
+    currentUser: [],
+    isLogin: false
   },
   mutations: {
     emptyCommit () {
 
+    },
+    updateLoginStatus (state, payload) {
+        return state.isLogin = payload
     },
     updateCurrentUser (state, payload) {
       return state.currentUser = payload
@@ -56,8 +60,9 @@ export default new Vuex.Store({
         }
       })
       .then(function (response) {
-        console.log(response.data.token)
-        // localStorage.setItem('token', response.data.token)
+        // console.log(response.data.token)
+        localStorage.setItem('token', response.data.token)
+        commit('updateLoginStatus', true)
         swal('Yeah ..', 'Login Success!', 'success')
       })
       .catch(function (err) {
