@@ -13,7 +13,7 @@
                         <div class="title">{{article.title}}</div>
                     </v-card-title>
                     <v-card-media :src="article.imageUrl" height="300px" class="article-card">
-                  </v-card-media>
+                    </v-card-media>
                 </router-link>
 
                 <v-card-actions>

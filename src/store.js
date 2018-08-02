@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import swal from 'sweetalert2'
+import jwt from 'jsonwebtoken'
 
 Vue.use(Vuex)
 
@@ -104,6 +105,74 @@ export default new Vuex.Store({
       })
       .catch(function (err) {
           console.log(err)
+      })
+    },
+
+    getArticlesByAuthor ({ commit }) {
+      let decodedToken = jwt.decode(localStorage.getItem('token'))
+      
+      let url = `http://localhost:3000/articles/author/${decodedToken._id}`
+      
+      axios.get(url)
+      .then(function (response) {
+        commit('updateArticlesByAuthor', response.data)
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+    },
+    postArticle ({commit, dispatch}, payload) {
+
+      let authorId = (jwt.decode(localStorage.getItem('token')))._id
+
+      console.log(authorId)
+
+      let url =`http://localhost:3000/articles/`
+      
+      axios({
+        method: 'post',
+        url: url,
+        data: {
+          author: authorId,
+          title: payload.title, 
+          content: payload.title, 
+          imageUrl: payload.imageUrl, 
+          category: payload.category
+        }
+      })
+      .then(function () {
+        dispatch('getArticlesByAuthor')
+        commit('emptyCommit')
+      })
+      .catch(function (err) {
+          console.log(err)
+      })
+    },
+    updateArticle ({commit}, payload) {
+      console.log(payload)
+      commit('emptyCommit')
+    },
+    deleteArticleById ({dispatch}, payload) {
+      let url = `http://localhost:3000/articles`
+      
+      axios({
+        method: 'delete',
+        url: url,
+        data: {
+          id: payload
+        }
+      })
+      .then(function (response) {
+        console.log(response)
+        dispatch('getArticlesByAuthor')
+        swal(
+          'Deleted!',
+          `Article with ID ${ payload } has been deleted.`,
+          'success'
+        )
+      })
+      .catch(function (err) {
+        console.log(err)
       })
     }
   }

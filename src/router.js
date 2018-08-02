@@ -21,10 +21,10 @@ export default new Router({
       name: 'article',
       component: () => import('./components/Article.vue')
     },
-    // {
-    //   path: '/admin',
-    //   name: 'admin',
-    //   component: () => import(/* webpackChunkName: "about" */ './views/Admin.vue')
-    // }
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import(/* webpackChunkName: "about" */ './components/Admin.vue')
+    }
   ]
 })
