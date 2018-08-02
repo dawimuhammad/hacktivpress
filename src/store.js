@@ -93,6 +93,18 @@ export default new Vuex.Store({
       })
 
       commit('emptyCommit')
+    },
+    getArticleById ({ commit }, payload) {
+      let url =`http://localhost:3000/articles/${payload}`
+
+      axios.get(url)
+      .then(function (response) {
+            // console.log(response.data)
+            commit('updateArticleById', response.data)
+      })
+      .catch(function (err) {
+          console.log(err)
+      })
     }
   }
 })

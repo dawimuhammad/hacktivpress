@@ -13,25 +13,13 @@
                         <div class="title">{{article.title}}</div>
                     </v-card-title>
                     <v-card-media :src="article.imageUrl" height="300px" class="article-card">
-                    <!-- <v-container fill-height fluid pa-5>
-                      <v-layout row>
-                        <v-flex xs12 align-center flexbox>
-                            <span color="blue" class="headline text-xs-center article-title" v-text="article.title"></span>
-                        </v-flex>
-                      </v-layout>
-                    </v-container> -->
                   </v-card-media>
                 </router-link>
 
                 <v-card-actions>
-                  <p>Created by {{ article.author.name }}</p>
+                  <p>Created by {{ article.author.username }}</p>
                   <v-spacer></v-spacer>
-                  <v-btn icon v-on:click="upvoteArticle">
-                    <v-icon>thumb_up_alt</v-icon>
-                  </v-btn>
-                  <v-btn icon v-on:click="downvoteArticle">
-                    <v-icon>thumb_down_alt</v-icon>
-                  </v-btn>
+                  <p>{{ article.time }}</p>
                 </v-card-actions>
               </v-card>
             </v-flex>
