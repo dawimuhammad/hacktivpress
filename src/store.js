@@ -61,7 +61,6 @@ export default new Vuex.Store({
         }
       })
       .then(function (response) {
-        // console.log(response.data.token)
         localStorage.setItem('token', response.data.token)
         commit('updateLoginStatus', true)
         swal('Yeah ..', 'Login Success!', 'success')
@@ -100,7 +99,6 @@ export default new Vuex.Store({
 
       axios.get(url)
       .then(function (response) {
-            // console.log(response.data)
             commit('updateArticleById', response.data)
       })
       .catch(function (err) {
