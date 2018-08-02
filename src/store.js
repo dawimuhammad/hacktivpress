@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-// import swal from 'sweetalert2'
+import swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -43,6 +43,29 @@ export default new Vuex.Store({
       .catch(function (err) {
           console.log(err)
       })
+    },
+    loginAccount ({ commit }, payload) {
+      let url =`http://localhost:3000/users/login`
+      
+      axios({
+        method: 'post',
+        url: url,
+        data: {
+            username: payload.username,
+            password: payload.password
+        }
+      })
+      .then(function (response) {
+        console.log(response.data.token)
+        // localStorage.setItem('token', response.data.token)
+        swal('Yeah ..', 'Login Success!', 'success')
+      })
+      .catch(function (err) {
+          console.log(err)
+          swal('Ooops ..', `Login Failed! Error: ${err.message}`, 'error')
+      })
+
+        commit('emptyCommit')
     }
   }
 })
